@@ -6,14 +6,19 @@ interface USeThemeResult {
     theme:Theme
 }
 
+///TODO make MUI theming
 export function useTheme(): USeThemeResult {
 	const { theme, setTheme } = useContext(ThemeContext)
 
 	const toggleTheme = () => {
 		const newTheme = Theme.STANDARD
-		setTheme(newTheme)
+		setTheme?.(newTheme)
+		document.body.className = newTheme
 		localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme)
 	}
 
-	return { theme, toggleTheme }
+	return {
+		theme: theme || Theme.STANDARD,
+		toggleTheme
+	}
 }
